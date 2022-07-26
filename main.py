@@ -3,64 +3,69 @@ from subprocess import call
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from functools import partial
 from SIM800C_PhoneCallUI import *
-from phoneCall import calling
+from phoneCall import connect_SIM800C, calling, cut_off
 from multiprocessing import Process
 
 class MyWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MyWindow, self).__init__(parent)
-        self.setWindowIcon(QtGui.QIcon('phone.jpg'))
-        self.setupUi(self)
-        self.pushButton_0.clicked.connect(partial(self.btn_0))
-        self.pushButton_1.clicked.connect(partial(self.btn_1))
-        self.pushButton_2.clicked.connect(partial(self.btn_2))
-        self.pushButton_3.clicked.connect(partial(self.btn_3))
-        self.pushButton_4.clicked.connect(partial(self.btn_4))
-        self.pushButton_5.clicked.connect(partial(self.btn_5))
-        self.pushButton_6.clicked.connect(partial(self.btn_6))
-        self.pushButton_7.clicked.connect(partial(self.btn_7))
-        self.pushButton_8.clicked.connect(partial(self.btn_8))
-        self.pushButton_9.clicked.connect(partial(self.btn_9))
-        self.pushButton_10.clicked.connect(partial(self.btn_10))
-        self.pushButton_11.clicked.connect(partial(self.btn_11))
-        self.pushButton_12.clicked.connect(partial(self.call))
-        self.pushButton_13.clicked.connect(partial(self.cutOff))
-        self.pushButton_del.clicked.connect(partial(self.delText))
 
-    def btn_0(self):
+        # create a attribute for SIM800C
+        self.SIM800C = connect_SIM800C('USB-SERIAL')
+
+        self.setWindowIcon(QtGui.QIcon('icon.jpg'))
+        self.setupUi(self)
+        self.pushButton_0.clicked.connect(partial(self.btn_0_function))
+        self.pushButton_1.clicked.connect(partial(self.btn_1_function))
+        self.pushButton_2.clicked.connect(partial(self.btn_2_function))
+        self.pushButton_3.clicked.connect(partial(self.btn_3_function))
+        self.pushButton_4.clicked.connect(partial(self.btn_4_function))
+        self.pushButton_5.clicked.connect(partial(self.btn_5_function))
+        self.pushButton_6.clicked.connect(partial(self.btn_6_function))
+        self.pushButton_7.clicked.connect(partial(self.btn_7_function))
+        self.pushButton_8.clicked.connect(partial(self.btn_8_function))
+        self.pushButton_9.clicked.connect(partial(self.btn_9_function))
+        self.pushButton_10.clicked.connect(partial(self.btn_10_function))
+        self.pushButton_11.clicked.connect(partial(self.btn_11_function))
+        self.pushButton_12.clicked.connect(partial(self.btn_call_function))
+        self.pushButton_13.clicked.connect(partial(self.btn_cutOff_function))
+        self.pushButton_del.clicked.connect(partial(self.btn_delText_function))
+
+    def btn_0_function(self):
         self.lineEdit.insert("0")
-    def btn_1(self):
+    def btn_1_function(self):
         self.lineEdit.insert("1")
-    def btn_2(self):
+    def btn_2_function(self):
         self.lineEdit.insert("2")
-    def btn_3(self):
+    def btn_3_function(self):
         self.lineEdit.insert("3")
-    def btn_4(self):
+    def btn_4_function(self):
         self.lineEdit.insert("4")
-    def btn_5(self):
+    def btn_5_function(self):
         self.lineEdit.insert("5")
-    def btn_6(self):
+    def btn_6_function(self):
         self.lineEdit.insert("6")
-    def btn_7(self):
+    def btn_7_function(self):
         self.lineEdit.insert("7")
-    def btn_8(self):
+    def btn_8_function(self):
         self.lineEdit.insert("8")
-    def btn_9(self):
+    def btn_9_function(self):
         self.lineEdit.insert("9")
-    def btn_10(self):
+    def btn_10_function(self):
         self.lineEdit.insert("*")
-    def btn_11(self):
+    def btn_11_function(self):
         self.lineEdit.insert("#")
 
-    def call(self):
+    def btn_call_function(self):
         print("Calling to " + self.lineEdit.text())
-        p = Process(target=calling, args=(self.lineEdit.text(),))
-        p.start()
-        # calling(self.lineEdit.text())
-    def cutOff(self):
-        print("Cut off")
+        # p = Process(target=calling, args=(self.lineEdit.text(),))
+        # p.start()
+        calling(self.lineEdit.text(), self.SIM800C)
+        
+    def btn_cutOff_function(self):
+        cut_off(self.SIM800C)
 
-    def delText(self):
+    def btn_delText_function(self):
         self.lineEdit.setText(self.lineEdit.text()[0:-1])
 
 if __name__ == '__main__':
