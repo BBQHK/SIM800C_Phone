@@ -13,7 +13,13 @@
   <property name="windowTitle">
    <string>SIM800C Phone Call</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QPushButton" name="pushButton_1">
     <property name="geometry">
      <rect>
@@ -245,7 +251,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #99ff99</string>
+     <string notr="true">background-color: #ccffcc</string>
     </property>
     <property name="text">
      <string>Call</string>
@@ -264,6 +270,9 @@
      <font>
       <pointsize>20</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #000; color:#fff;</string>
     </property>
     <property name="text">
      <string/>
@@ -305,7 +314,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: #ff6666</string>
+     <string notr="true">background-color: #ffcccc</string>
     </property>
     <property name="text">
      <string>Cut off</string>

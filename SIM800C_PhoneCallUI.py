@@ -15,7 +15,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(221, 455)
+        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_1 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_1.setGeometry(QtCore.QRect(10, 60, 61, 61))
@@ -94,13 +96,14 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(20)
         self.pushButton_12.setFont(font)
-        self.pushButton_12.setStyleSheet("background-color: #99ff99")
+        self.pushButton_12.setStyleSheet("background-color: #ccffcc")
         self.pushButton_12.setObjectName("pushButton_12")
         self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(10, 10, 201, 41))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.lineEdit.setFont(font)
+        self.lineEdit.setStyleSheet("background-color: #000; color:#fff;")
         self.lineEdit.setText("")
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton_del = QtWidgets.QPushButton(self.centralwidget)
@@ -115,7 +118,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(13)
         self.pushButton_13.setFont(font)
-        self.pushButton_13.setStyleSheet("background-color: #ff6666")
+        self.pushButton_13.setStyleSheet("background-color: #ffcccc")
         self.pushButton_13.setObjectName("pushButton_13")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -147,3 +150,13 @@ class Ui_MainWindow(object):
         self.pushButton_12.setText(_translate("MainWindow", "Call"))
         self.pushButton_del.setText(_translate("MainWindow", "Del"))
         self.pushButton_13.setText(_translate("MainWindow", "Cut off"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

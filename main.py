@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from functools import partial
 from SIM800C_PhoneCallUI import *
 from phoneCall import connect_SIM800C, calling, cut_off
-from multiprocessing import Process
+import threading
 
 class MyWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
@@ -13,7 +13,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
         # create a attribute for SIM800C
         self.SIM800C = connect_SIM800C('USB-SERIAL')
 
-        self.setWindowIcon(QtGui.QIcon('icon.jpg'))
+        self.setWindowIcon(QtGui.QIcon('./asset/icon.jpg'))
         self.setupUi(self)
         self.pushButton_0.clicked.connect(partial(self.btn_0_function))
         self.pushButton_1.clicked.connect(partial(self.btn_1_function))
@@ -58,9 +58,8 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
     def btn_call_function(self):
         print("Calling to " + self.lineEdit.text())
-        # p = Process(target=calling, args=(self.lineEdit.text(),))
-        # p.start()
-        calling(self.lineEdit.text(), self.SIM800C)
+        t1 = threading.Thread(target=calling, args=(self.lineEdit.text(), self.SIM800C))
+        t1.start()
         
     def btn_cutOff_function(self):
         cut_off(self.SIM800C)

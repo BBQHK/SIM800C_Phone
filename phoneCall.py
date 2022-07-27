@@ -59,7 +59,8 @@ def calling(phonenum, SIM800C):
                 break
 
 def cut_off(SIM800C):
-    SIM800C.write('ATH\n')
+    SIM800C.write(f'ATH\n')
+    SIM800C.flush()   
     print("Cut off the phone")
     
 def main():
