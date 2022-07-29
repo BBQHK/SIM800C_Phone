@@ -6,6 +6,7 @@ import serial
 import serial.tools.list_ports
 
 # device_name = 'USB-SERIAL'
+stop_signal = False
 
 def connect_SIM800C(device_name):
     port_list = list(serial.tools.list_ports.comports())
@@ -22,6 +23,9 @@ def connect_SIM800C(device_name):
     return sio
 
 def calling(phonenum, SIM800C):
+        global stop_signal
+        stop_signal = False
+        
         SIM800C.write(f'ATE1\nAT+COLP=1\nATD{str(phonenum)};\n')
         ''' 
         ATE1: 用於設置開啓回顯模式，檢測Module與串口是否連通，能否接收AT命令
@@ -35,7 +39,7 @@ def calling(phonenum, SIM800C):
 
         SIM800C.flush()
         print("Calling (If it cannot work for long, please use XCOM V2.0 to check)....")
-        while 1:
+        while not stop_signal:
             try:
                 x = "".join(SIM800C.readlines())
             except Exception:
@@ -57,10 +61,13 @@ def calling(phonenum, SIM800C):
             if (x.find('ERROR') != -1): 
                 print("\nErrors occurr in SIM card (it's not China Mobile card or it arrears), \nor in other devices, \nor Card installation error")
                 break
+        print("break")
 
 def cut_off(SIM800C):
+    global stop_signal
     SIM800C.write(f'ATH\n')
-    SIM800C.flush()   
+    SIM800C.flush()
+    stop_signal = True
     print("Cut off the phone")
     
 def main():
