@@ -30,7 +30,7 @@ After that, just start it.
 <img width="700" alt="image" src="https://user-images.githubusercontent.com/43085343/182064649-6722a949-b2c5-4289-8b68-a0ecaf1cd669.png">
 
 ## Usage
-Just run main.py and enjoy..
+Just run main.py and enjoy.
 
 <img width="400" alt="image" src="https://user-images.githubusercontent.com/43085343/182064732-7002afef-3306-4ff4-88c7-c73aac2f6ee7.png">
 
