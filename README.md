@@ -17,6 +17,11 @@ Please run two Audio Repeater (MME) as administrator.
 
 <img width="700" alt="image" src="https://user-images.githubusercontent.com/43085343/182064036-4db102a7-7605-4eb5-a425-51cb26336cf1.png">
 
+Please select “Wave in” and “Wave out” of 2 Audio Repeater by following below:
+|       | Wave in | Wave out |
+| :-----| :----: | :----: |
+| Audio Repeater 1 | Front panel audio input | USB sound card audio output |
+| Audio Repeater 2 | USB sound card audio input | Front panel audio output |
 
 
 
