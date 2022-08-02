@@ -20,13 +20,15 @@ def connect_SIM800C(device_name):
         if str(i).find(device_name) != -1: # plz modify the device name if needed
             s = serial.Serial(i.device, 115200, timeout=0)
     sio = io.TextIOWrapper(io.BufferedRWPair(s, s))
+    sio.write(f'ATE1\nAT+COLP=1\n')
+    sio.flush()
     return sio
 
 def calling(phonenum, SIM800C):
         global stop_signal
         stop_signal = False
         
-        SIM800C.write(f'ATE1\nAT+COLP=1\nATD{str(phonenum)};\n')
+        SIM800C.write(f'ATD{str(phonenum)};\n')
         ''' 
         ATE1: 用於設置開啓回顯模式，檢測Module與串口是否連通，能否接收AT命令
         開啓回顯，有利於調試
