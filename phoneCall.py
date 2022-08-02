@@ -20,7 +20,8 @@ def connect_SIM800C(device_name):
         if str(i).find(device_name) != -1: # plz modify the device name if needed
             s = serial.Serial(i.device, 115200, timeout=0)
     sio = io.TextIOWrapper(io.BufferedRWPair(s, s))
-    sio.write(f'ATE1\nAT+COLP=1\n')
+    sio.write(f'AT+DDET=1\nATS0=0\nATE1\nAT+COLP=1\nAT+CLIP=1\n')
+    # sio.write(f'ATE1\nAT+COLP=1\n')
     sio.flush()
     return sio
 
@@ -71,6 +72,32 @@ def cut_off(SIM800C):
     SIM800C.flush()
     stop_signal = True
     print("Cut off the phone")
+
+def accept_call(SIM800C):
+    global stop_signal
+    stop_signal = False
+    SIM800C.write(f'ATA\n')
+    SIM800C.flush()
+    print("Accept the call")
+    while not stop_signal:
+        try:
+            x = "".join(SIM800C.readlines())
+        except Exception:
+            print("\nError occurs accidentally, check the port or other devices :(")
+            exit()
+
+        if x.find('NO CARRIER') != -1:
+            print("\nRing off")
+            break
+
+        if (x.find('BUSY') != -1) | (x.find('NO ANSWER') != -1):
+            print("\nHe/She hangs up")
+            break
+
+        if (x.find('ERROR') != -1): 
+            print("\nErrors occurr in SIM card (it's not China Mobile card or it arrears), \nor in other devices, \nor Card installation error")
+            break
+    print("break")
     
 def main():
     print("calling to " + sys.argv[1])

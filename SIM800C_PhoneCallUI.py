@@ -14,7 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(221, 455)
+        MainWindow.setEnabled(True)
+        MainWindow.resize(221, 508)
         MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("")
@@ -120,6 +121,20 @@ class Ui_MainWindow(object):
         self.pushButton_13.setFont(font)
         self.pushButton_13.setStyleSheet("background-color: #ffcccc")
         self.pushButton_13.setObjectName("pushButton_13")
+        self.label_show = QtWidgets.QLabel(self.centralwidget)
+        self.label_show.setEnabled(True)
+        self.label_show.setGeometry(QtCore.QRect(10, 430, 121, 16))
+        self.label_show.setAutoFillBackground(False)
+        self.label_show.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.label_show.setObjectName("label_show")
+        self.pushButton_accept = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_accept.setGeometry(QtCore.QRect(140, 410, 71, 23))
+        self.pushButton_accept.setStyleSheet("background-color: #ccffcc")
+        self.pushButton_accept.setObjectName("pushButton_accept")
+        self.pushButton_deny = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_deny.setGeometry(QtCore.QRect(140, 440, 71, 23))
+        self.pushButton_deny.setStyleSheet("background-color: #ffcccc")
+        self.pushButton_deny.setObjectName("pushButton_deny")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 221, 21))
@@ -150,13 +165,6 @@ class Ui_MainWindow(object):
         self.pushButton_12.setText(_translate("MainWindow", "Call"))
         self.pushButton_del.setText(_translate("MainWindow", "Del"))
         self.pushButton_13.setText(_translate("MainWindow", "Cut off"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        self.label_show.setText(_translate("MainWindow", "Ready"))
+        self.pushButton_accept.setText(_translate("MainWindow", "Accept"))
+        self.pushButton_deny.setText(_translate("MainWindow", "Deny"))
