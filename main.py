@@ -12,6 +12,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
         # create a attribute for SIM800C
         self.SIM800C = connect_SIM800C('USB-SERIAL')
+        self.tempPhoneNumber = ""
 
         self.setWindowIcon(QtGui.QIcon('./asset/icon.jpg'))
         self.setupUi(self)
@@ -67,29 +68,32 @@ class MyWindow(QMainWindow, Ui_MainWindow):
 
     def btn_call_function(self):
         print("Calling to " + self.lineEdit.text())
+        self.label_show.setText("Calling to " + self.lineEdit.text() + " ...")
         t1 = threading.Thread(target=calling, args=(self.lineEdit.text(), self.SIM800C, ))
         t1.start()
         
     def btn_cutOff_function(self):
+        self.lineEdit.setText("")
+        self.label_show.setText("Cutted off")
         cut_off(self.SIM800C)
 
     def btn_delText_function(self):
         self.lineEdit.setText(self.lineEdit.text()[0:-1])
     
     def btn_accept_function(self):
-        print("Accepted call")
         self.label_show.setText("Accepted call")
         self.pushButton_accept.hide()
         self.pushButton_deny.hide()
+        self.lineEdit.setText(self.tempPhoneNumber)
         # accept_call(self.SIM800C)
         t1 = threading.Thread(target=accept_call, args=(self.SIM800C, ))
         t1.start()
     
     def btn_deny_function(self):
-        print("Denied call")
         self.label_show.setText("Denied call")
         self.pushButton_accept.hide()
         self.pushButton_deny.hide()
+
         cut_off(self.SIM800C)
 
     def checkCallRequest(self):
@@ -101,6 +105,7 @@ class MyWindow(QMainWindow, Ui_MainWindow):
                 exit()
             if (x.find('+CLIP: "') != -1):
                 self.label_show.setText("Incoming call from " + x[x.find('+CLIP: "')+8:x.find('+CLIP: "')+16])
+                self.tempPhoneNumber = x[x.find('+CLIP: "')+8:x.find('+CLIP: "')+16]
                 self.pushButton_accept.show()
                 self.pushButton_deny.show()
     
